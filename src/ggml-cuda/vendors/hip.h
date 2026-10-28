@@ -1,5 +1,6 @@
 #pragma once
 
+#include <hip/hip_version.h>
 #include <hip/hip_runtime.h>
 #include <hipblas/hipblas.h>
 #include <hip/hip_fp16.h>
@@ -9,7 +10,9 @@
 #include <rccl/rccl.h>
 #endif // GGML_USE_NCCL
 
-
+#if HIP_VERSION >= 60300000 && HIP_VERSION < 70000000
+#define HIP_ENABLE_WARP_SYNC_BUILTINS 1
+#endif
 #define CUBLAS_GEMM_DEFAULT HIPBLAS_GEMM_DEFAULT
 #define CUBLAS_GEMM_DEFAULT_TENSOR_OP HIPBLAS_GEMM_DEFAULT
 #define CUBLAS_OP_N HIPBLAS_OP_N
